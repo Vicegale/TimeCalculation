@@ -1,6 +1,7 @@
 def calc(target, hours, l=[]):
 	results = []
-	hasGoneDeeper = False
+	hours.sort()
+	hasGoneDeeper=False
 	for i in hours:
 		if target - i >= 0:
 			hasGoneDeeper = True
@@ -8,7 +9,22 @@ def calc(target, hours, l=[]):
 		else:
 			if not hasGoneDeeper:
 				results.append(l)
+				break
 	return list(set([tuple(sorted(l)) for l in results]))
 
-for i in calc(100, [10, 20, 30]):
-	print(i)
+def tostr(result):
+	l = list(result)
+	s = []
+	for i in set(l):
+		s.append(str(result.count(i)) + "x(" + str(i) + ")")
+	return " + ".join(s) + " = " + str(sum(result))
+	
+	
+#import sys
+
+#max_time = int(sys.argv[1])
+#h = [int(i) for i in sys.argv[2::]]
+max_time = 50
+h = [12, 40, 32]
+for i in calc(max_time, h):
+	print(i, tostr(i))
